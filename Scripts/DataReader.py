@@ -43,6 +43,6 @@ def Load_CIFAR10():
 
 def Get_Iters(train,test,batch_size,workers):
     train_iter = gluon_data.DataLoader(train.transform_first(transform_train), batch_size, shuffle = True, num_workers = workers)
-    test_iter = gluon_data.DataLoader(test.transform_first(transform_test), batch_size, shuffle = True, num_workers = workers)
+    test_iter = gluon_data.DataLoader(test.transform_first(transform_test), 1, shuffle = True, num_workers = workers)
 
     return train_iter, test_iter
