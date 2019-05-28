@@ -73,7 +73,6 @@ class Resnet(nn.HybridBlock):
 
                 total_loss += loss_value.asscalar()
                 loss_value.backward()
-                print(total_loss)
                 trainer.step(batch_size)
             
             self.loss_values.append(total_loss)

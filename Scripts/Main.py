@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from mxnet import gluon 
+from matplotlib import pyplot as plt
 
 from DataReader import *
 from Net import *
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     deep_net = Resnet()
     
     loss_function = gluon.loss.SoftmaxCrossEntropyLoss()
-    trainer = gluon.Trainer(deep_net.net.collect_params(),'sgd',{'learning_rate' : 0.1, 'momentum' : 0.9, 'wd' : 5e-4})
+    trainer = gluon.Trainer(deep_net.net.collect_params(),'sgd',{'learning_rate' : 0.1, 'momentum' : 0.8, 'wd' : 5e-4})
 
     deep_net.train(20, #num_epchos
                     train_iter,    # Data iterator 
@@ -25,7 +26,7 @@ if __name__ == '__main__':
                     trainer,
                     128) #batch_size
     
-    deep_net.save_parameters('recognizer.params')
+    deep_net.save_parameters('recognizer3.params')
 
     print("Testing: ")
     accuracy = 0
@@ -36,3 +37,11 @@ if __name__ == '__main__':
             
     result = float(accuracy/len(test_data))
     print(result*100,"%")
+    
+    # Plot total loss
+    plt.figure(1)
+    plt.grid()
+    plt.xlabel('Epochs')
+    plt.ylabel('Total Loss')
+    plt.plot(deep_net.loss_values)
+    plt.savefig('Images\Recognizer2.png')
